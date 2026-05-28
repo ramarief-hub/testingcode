@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khusus Untuk Kamu ❤️</title>
+    <style>
+        /* CSS: Mengatur Tampilan dan Estetika */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            color: #ff477e;
+            font-size: 24px;
+            margin-bottom: 20px;
+            min-height: 60px; /* Menjaga ruang untuk efek mengetik */
+        }
+
+        .gif-container img {
+            width: 150px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+            height: 50px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #btn-yes {
+            background-color: #ff477e;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+        }
+
+        #btn-yes:hover {
+            transform: scale(1.1);
+            background-color: #ff2a65;
+        }
+
+        #btn-no {
+            background-color: #94a3b8;
+            color: white;
+            position: absolute; /* Penting agar tombol bisa kabur */
+            right: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HTML: Struktur Konten -->
+    <div class="container">
+        <!-- Kamu bisa ganti link GIF di bawah dengan GIF lucu lainnya -->
+        <div class="gif-container">
+            <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3BndDJpcnMzdWhuZXA2Y3M0Z2Nid3N5YWhuY296Z3BtY2p0Z210NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Cat">
+        </div>
+        
+        <h1 id="text-romantis"></h1>
+
+        <div class="btn-container">
+            <button id="btn-yes" onclick="tampilkanPesan()">Mau!</button>
+            <button id="btn-no" onmouseover="kabur()" onclick="kabur()">Gak</button>
+        </div>
+    </div>
+
+    <!-- AUDIO: Musik Latar Belakang (Ganti URL dengan link lagu favorit kalian) -->
+    <!-- Catatan: Beberapa browser mewajibkan interaksi klik dulu baru musik berputar -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- JAVASCRIPT: Logika Interaktif -->
+    <script>
+        // 1. Efek Mengetik Otomatis
+        const teks = "Hai Yantii... Keluar yuk belajar bareng mau kahh? 🌸";
+        let index = 0;
+        
+        function efekNgetik() {
+            if (index < teks.length) {
+                document.getElementById("text-romantis").innerHTML += teks.charAt(index);
+                index++;
+                setTimeout(efekNgetik, 100); // Kecepatan mengetik (100ms)
+            }
+        }
+        
+        // Jalankan efek mengetik saat halaman selesai dimuat
+        window.onload = function() {
+            efekNgetik();
+            // Coba putar musik otomatis
+            document.getElementById("bg-music").volume = 0.5;
+            document.body.addEventListener('click', function() {
+                document.getElementById("bg-music").play();
+            }, { once: true }); // Musik berputar setelah klik pertama di mana saja
+        };
+
+        // 2. Logika Tombol "Gak" Kabur
+        function kabur() {
+            const btnNo = document.getElementById("btn-no");
+            
+            // Menghitung posisi acak di dalam area layar
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 50);
+            
+            // Mengubah posisi tombol secara instan
+            btnNo.style.position = "fixed";
+            btnNo.style.left = x + "px";
+            btnNo.style.top = y + "px";
+        }
+
+        // 3. Logika saat Tombol "Mau!" Diklik
+        function tampilkanPesan() {
+            // Mengubah teks
+            document.getElementById("text-romantis").innerHTML = "Yeayyy! Makasih, sampai ketemu lagii! ❤️✨";
+            
+            // Mengubah gambar GIF jadi lebih bahagia
+            document.getElementById("main-gif").src = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpidGp3cXc2azFzN2ExZzM2OXNqaXZ0MHN3cng3bzNpOXZnYjVhdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d37mEpcaGP3pudPoho/giphy.gif";
+            
+            // Menyembunyikan tombol-tombol
+            document.querySelector(".btn-container").style.display = "none";
+        }
+    </script>
+</body>
+</html>
