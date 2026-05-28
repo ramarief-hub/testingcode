@@ -84,7 +84,6 @@
 
     <!-- HTML: Struktur Konten -->
     <div class="container">
-        <!-- Kamu bisa ganti link GIF di bawah dengan GIF lucu lainnya -->
         <div class="gif-container">
             <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3BndDJpcnMzdWhuZXA2Y3M0Z2Nid3N5YWhuY296Z3BtY2p0Z210NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Cat">
         </div>
@@ -97,10 +96,9 @@
         </div>
     </div>
 
-    <!-- AUDIO: Musik Latar Belakang (Ganti URL dengan link lagu favorit kalian) -->
-    <!-- Catatan: Beberapa browser mewajibkan interaksi klik dulu baru musik berputar -->
+    <!-- AUDIO: Link Lagu "Kita Bikin Romantis" -->
     <audio id="bg-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        <source src="https://open.audio.cat/track/maliq-d-essentials-kita-bikin-romantis.mp3" type="audio/mp3">
     </audio>
 
     <!-- JAVASCRIPT: Logika Interaktif -->
@@ -117,14 +115,18 @@
             }
         }
         
-        // Jalankan efek mengetik saat halaman selesai dimuat
+        // Jalankan efek mengetik & konfigurasi musik saat halaman selesai dimuat
         window.onload = function() {
             efekNgetik();
-            // Coba putar musik otomatis
-            document.getElementById("bg-music").volume = 0.5;
+            
+            const musik = document.getElementById("bg-music");
+            musik.volume = 0.6; // Mengatur volume musik hangat
+
+            // Musik otomatis berputar dan lompat ke detik 54 setelah klik pertama di layar
             document.body.addEventListener('click', function() {
-                document.getElementById("bg-music").play();
-            }, { once: true }); // Musik berputar setelah klik pertama di mana saja
+                musik.currentTime = 54; // Melompat ke menit 00:54 ("Kita bikin romantis...")
+                musik.play();
+            }, { once: true });
         };
 
         // 2. Logika Tombol "Gak" Kabur
